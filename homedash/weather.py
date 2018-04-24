@@ -1,11 +1,13 @@
-from urllib.request import urlopen
-from urllib.request import  urlretrieve
+from urllib.request import urlopen, urlretrieve
 import json
 import os.path
 from PyQt5.QtWidgets import QLayout, QWidget, QLabel, QVBoxLayout
 from PyQt5.QtGui import QPixmap, QFont
 
-## set up id, key and url
+
+id = None
+key = None
+url = None
 
 def getcurrentweather():
     # response = urlopen(url).read().decode('utf-8')

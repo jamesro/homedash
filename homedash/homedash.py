@@ -23,7 +23,6 @@ class App(QMainWindow):
         p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)
 
-
         self.createGridLayout()
 
         windowLayout = QVBoxLayout()
