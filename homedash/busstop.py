@@ -15,24 +15,28 @@ class BusStopWidget(QWidget):
         self.app_key = info["busstop"]["app_key"]
         self.url = "https://api.tfl.gov.uk/StopPoint/490012916S/arrivals?app_id={0}&app_key={1}".format(self.app_id,
                                                                                                         self.app_key)
-        self.text = QLabel()
-        self.text.setFont(QFont("Times", 15, QFont.Bold))
+        self.text = QLabel("-- minutes")
+        self.text.setFont(QFont("Times", 25, QFont.Bold))
         timer = QTimer(self)
         timer.timeout.connect(self.update)
         timer.start(60000) # 60 seconds
+
+        self.vbox = QVBoxLayout()
+        self.vbox.addStretch(1)
+        #  TO-DO : don't hard-code bus number
+        bus_number = QLabel()
+        bus_number.setFont(QFont("Times", 25, QFont.Bold))
+        bus_number.setText("263")
+        self.vbox.addWidget(bus_number)
+        self.vbox.addWidget(self.text)
+        self.setLayout(self.vbox)
         self.update()
 
     def update(self):
         response = urlopen(self.url).read().decode('utf-8')
         self.data = json.loads(response)
         time_until_bus = self.get_time_until_bus()
-
-        self.text.setText(str(time_until_bus) + "minutes")
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addWidget(QLabel("263"))
-        vbox.addWidget(self.text)
-        self.setLayout(vbox)
+        self.text.setText(str(time_until_bus) + " minutes")
 
     def get_time_until_bus(self):
         times_until_bus = []
