@@ -4,7 +4,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot, QDate, QTime, QDateTime, Qt, QTimer
 from PyQt5 import QtGui
 from weather import WeatherWidget
-
+from busstop import BusStopWidget
 
 class App(QMainWindow):
 
@@ -39,6 +39,7 @@ class App(QMainWindow):
         layout.addWidget(DigitalClock(), 0, 0, 1, 2)
         layout.addWidget(DigitalClock(), 0, 2, 1, 1)
         layout.addWidget(WeatherWidget(), 1, 0, 2, 3)
+        layout.addWidget(BusStopWidget(), 2, 0, 2, 2)
 
         self.horizontalGroupBox.setLayout(layout)
 
