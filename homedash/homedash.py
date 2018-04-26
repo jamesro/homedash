@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSlot, QDate, QTime, QDateTime, Qt, QTimer
 from PyQt5 import QtGui
 from weather import WeatherWidget
 from busstop import BusStopWidget
+from datetime import datetime
 
 class App(QMainWindow):
 
@@ -20,7 +21,7 @@ class App(QMainWindow):
         # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), Qt.black)
+        # p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)
 
         self.createGridLayout()
@@ -36,45 +37,41 @@ class App(QMainWindow):
         layout = QGridLayout()
 
         layout.addWidget(DigitalClock(), 0, 3, 3, 3)
-        layout.addWidget(DigitalClock(), 0, 0, 1, 2)
-        layout.addWidget(DigitalClock(), 0, 2, 1, 1)
         layout.addWidget(WeatherWidget(), 1, 0, 2, 3)
         layout.addWidget(BusStopWidget(), 2, 0, 2, 2)
 
         self.horizontalGroupBox.setLayout(layout)
 
 
-class DigitalClock(QLCDNumber):
-    def __init__(self, parent=None):
-        super(DigitalClock, self).__init__(parent)
+class DigitalClock(QLabel):
 
-        self.setSegmentStyle(QLCDNumber.Filled)
+    def __init__(self):
+        super().__init__()
+
+        # self.setSegmentStyle(QLCDNumber.Filled)
 
         timer = QTimer(self)
         timer.timeout.connect(self.showtime)
-        timer.start(1000)
+        timer.start(5000)  # 5 seconds
         # get the palette
         palette = self.palette()
 
-        # foreground color
-        palette.setColor(palette.WindowText, Qt.white)
-        # background color
-        palette.setColor(palette.Background, Qt.black)
+        # # foreground color
+        # palette.setColor(palette.WindowText, Qt.white)
+        # # background color
+        # palette.setColor(palette.Background, Qt.black)
 
         # set the palette
         self.setPalette(palette)
         self.showtime()
 
     def showtime(self):
-        time = QTime.currentTime()
-        text = time.toString('hh:mm')
-        self.display(text)
-
-
+        text = datetime.now().strftime("%I:%M%p \n %B %d, %Y")
+        self.setText(text)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setStyleSheet('QLabel{color: #fff;}')
+    # app.setStyleSheet('QLabel{color: #fff;}')
     ex = App()
     sys.exit(app.exec())
