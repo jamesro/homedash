@@ -54,8 +54,6 @@ class WeatherWidget(QWidget):
         vbox.addWidget(icon)
         vbox.addWidget(QLabel(self.weather_description))
         self.setLayout(vbox)
-        for key, values in data.items():
-            print(key, values)
 
     def get_icon(self, icon_code):
         if not os.path.isfile("../data/weather_icons/{}.png".format(icon_code)):
