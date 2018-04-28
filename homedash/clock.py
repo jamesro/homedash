@@ -23,6 +23,7 @@ class DigitalClock(QLCDNumber):
 
     def __init__(self, parent=None):
         super(DigitalClock, self).__init__(parent)
+
         # Font
         self.font = QtGui.QFont()
         self.font.setPointSize(25)
