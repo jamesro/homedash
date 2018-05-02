@@ -4,6 +4,7 @@ from weather import WeatherWidget
 from busstop import BusStopWidget
 from clock import ClockWidget
 
+
 class App(QMainWindow):
 
     def __init__(self):
